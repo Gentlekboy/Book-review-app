@@ -4,7 +4,7 @@ import com.gentlekboy.postappusingfragments.model.PostList
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface NetworkInterface {
+interface ApiInterface {
     //This function specifies the request type and endpoint
     @GET("posts")
     fun getPostsFromApi(): Call<PostList>
