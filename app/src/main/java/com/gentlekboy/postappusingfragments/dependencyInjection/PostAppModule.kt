@@ -1,6 +1,9 @@
 package com.gentlekboy.postappusingfragments.dependencyInjection
 
-import com.gentlekboy.postappusingfragments.network.NetworkInterface
+import android.app.Application
+import com.gentlekboy.postappusingfragments.database.PostDao
+import com.gentlekboy.postappusingfragments.database.PostDatabase
+import com.gentlekboy.postappusingfragments.network.ApiInterface
 import com.gentlekboy.postappusingfragments.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -17,7 +20,7 @@ import javax.inject.Singleton
 class PostAppModule {
     @Singleton
     @Provides
-    fun connectedInterface(): NetworkInterface{
+    fun connectedInterface(): ApiInterface{
         val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         return Retrofit.Builder()
@@ -25,6 +28,18 @@ class PostAppModule {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(NetworkInterface::class.java)
+            .create(ApiInterface::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun getPostDatabase(context: Application): PostDatabase{
+        return PostDatabase.getDbInstance(context)
+    }
+
+    @Singleton
+    @Provides
+    fun getPostDao(postDatabase: PostDatabase): PostDao {
+        return postDatabase.getPostDao()
     }
 }
