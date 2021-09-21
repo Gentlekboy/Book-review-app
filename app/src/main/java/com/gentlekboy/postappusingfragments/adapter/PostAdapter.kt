@@ -6,13 +6,10 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gentlekboy.postappusingfragments.databinding.PostsViewHolderBinding
-import com.gentlekboy.postappusingfragments.model.PostListItem
+import com.gentlekboy.postappusingfragments.model.posts.PostListItem
 import com.gentlekboy.postappusingfragments.utils.ClickPostInterface
 
-class PostAdapter(
-    private var listOfPosts: MutableList<PostListItem>,
-    private var clickPostInterface: ClickPostInterface
-): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(private var clickPostInterface: ClickPostInterface): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     inner class PostViewHolder(var binding: PostsViewHolderBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -36,7 +33,7 @@ class PostAdapter(
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         with(holder){
-            with(listOfPosts[position]){
+            with(differ.currentList[position]){
                 binding.postTitle.text = title
                 binding.postBody.text = body
                 binding.postId.text = id.toString()
@@ -49,6 +46,6 @@ class PostAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listOfPosts.size
+        return differ.currentList.size
     }
 }
