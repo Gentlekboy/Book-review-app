@@ -1,4 +1,4 @@
-package com.gentlekboy.postappusingfragments.model
+package com.gentlekboy.postappusingfragments.model.posts
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
