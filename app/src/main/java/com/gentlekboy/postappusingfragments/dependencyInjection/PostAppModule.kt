@@ -1,8 +1,8 @@
 package com.gentlekboy.postappusingfragments.dependencyInjection
 
 import android.app.Application
-import com.gentlekboy.postappusingfragments.database.PostDao
-import com.gentlekboy.postappusingfragments.database.PostDatabase
+import com.gentlekboy.postappusingfragments.database.AppDao
+import com.gentlekboy.postappusingfragments.database.AppDatabase
 import com.gentlekboy.postappusingfragments.network.ApiInterface
 import com.gentlekboy.postappusingfragments.utils.BASE_URL
 import dagger.Module
@@ -33,13 +33,13 @@ class PostAppModule {
 
     @Singleton
     @Provides
-    fun getPostDatabase(context: Application): PostDatabase{
-        return PostDatabase.getDbInstance(context)
+    fun getPostDatabase(context: Application): AppDatabase{
+        return AppDatabase.getDbInstance(context)
     }
 
     @Singleton
     @Provides
-    fun getPostDao(postDatabase: PostDatabase): PostDao {
-        return postDatabase.getPostDao()
+    fun getPostDao(appDatabase: AppDatabase): AppDao {
+        return appDatabase.getPostDao()
     }
 }
