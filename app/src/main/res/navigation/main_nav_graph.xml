@@ -34,5 +34,9 @@
         <action
             android:id="@+id/action_commentsFragment_to_postsFragment"
             app:destination="@id/postsFragment" />
+        <argument
+            android:name="postId"
+            app:argType="string"
+            android:defaultValue="1" />
     </fragment>
 </navigation>
