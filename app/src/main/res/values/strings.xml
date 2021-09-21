@@ -2,4 +2,16 @@
     <string name="app_name">Post App Using Fragments</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">sunt aut facere repellat provident occaecati excepturi optio reprehenderit</string>
+    <string name="_1">1</string>
+    <string name="post_body">est rerum tempore vitae sequi sint nihil reprehenderit dolor beatae ea dolores neque fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis qui aperiam non debitis possimus qui neque nisi nulla</string>
+    <string name="reviews">Reviews</string>
+    <string name="book_image">Book Image</string>
+    <string name="profile_image">Profile image</string>
+    <string name="comment_name">quo vero reiciendis velit similique earum</string>
+    <string name="comment_email">Jayne_Kuhic@sydney.com</string>
+    <string name="comment_body">quia molestiae reprehenderit quasi aspernatur aut expedita occaecati aliquam eveniet laudantium omnis quibusdam delectus saepe quia accusamus maiores nam est cum et ducimus et vero voluptates excepturi deleniti ratione</string>
+    <string name="review_helpful">Was this review helpful?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>
