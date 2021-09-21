@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.gentlekboy.postappusingfragments.R
+import androidx.navigation.fragment.findNavController
 import com.gentlekboy.postappusingfragments.adapter.PostAdapter
 import com.gentlekboy.postappusingfragments.databinding.FragmentPostsBinding
-import com.gentlekboy.postappusingfragments.model.PostListItem
+import com.gentlekboy.postappusingfragments.model.posts.PostListItem
 import com.gentlekboy.postappusingfragments.utils.ClickPostInterface
 import com.gentlekboy.postappusingfragments.viewModel.PostViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PostsFragment : Fragment(), ClickPostInterface {
     private lateinit var postAdapter: PostAdapter
-    private lateinit var listOfPosts: MutableList<PostListItem>
     private var _binding: FragmentPostsBinding? = null
     private val binding get() = _binding!!
     private val postViewModel: PostViewModel by viewModels()
@@ -40,14 +39,12 @@ class PostsFragment : Fragment(), ClickPostInterface {
     private fun observeViewModel() {
         postViewModel.makeGetRequest()
         postViewModel.getAllPosts().observe(viewLifecycleOwner, {
-            listOfPosts.addAll(it)
             postAdapter.differ.submitList(it)
         })
     }
 
     private fun initRecyclerViewAdapter() {
-        listOfPosts = mutableListOf()
-        postAdapter = PostAdapter(listOfPosts, this)
+        postAdapter = PostAdapter(this)
         binding.postRecyclerview.adapter = postAdapter
         binding.postRecyclerview.setHasFixedSize(true)
     }
@@ -57,7 +54,8 @@ class PostsFragment : Fragment(), ClickPostInterface {
         _binding = null
     }
 
-    override fun navigateToCommentsActivity(position: Int, id: Int) {
-
+    override fun navigateToCommentsActivity(position: Int, postId: Int) {
+        val action = PostsFragmentDirections.actionPostsFragmentToCommentsFragment(postId.toString())
+        findNavController().navigate(action)
     }
 }

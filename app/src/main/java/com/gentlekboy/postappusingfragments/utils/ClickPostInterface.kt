@@ -1,5 +1,5 @@
 package com.gentlekboy.postappusingfragments.utils
 
 interface ClickPostInterface {
-    fun navigateToCommentsActivity(position: Int, id: Int)
+    fun navigateToCommentsActivity(position: Int, postId: Int)
 }
