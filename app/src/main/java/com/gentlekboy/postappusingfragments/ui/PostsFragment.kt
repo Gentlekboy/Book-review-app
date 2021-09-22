@@ -29,6 +29,7 @@ class PostsFragment : Fragment(), ClickPostInterface {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        //Set up view binding
         _binding = FragmentPostsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,6 +37,7 @@ class PostsFragment : Fragment(), ClickPostInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Navigate to add posts fragment
         binding.floatingActionButton.setOnClickListener {
             val action = PostsFragmentDirections.actionPostsFragmentToAddPostFragment(postAdapter.differ.currentList.size)
             findNavController().navigate(action)
@@ -47,6 +49,7 @@ class PostsFragment : Fragment(), ClickPostInterface {
         filterPosts()
     }
 
+    //This function filters posts
     private fun filterPosts() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -56,21 +59,13 @@ class PostsFragment : Fragment(), ClickPostInterface {
 //
                 if (searchText != null) {
                     if (searchText.isNotEmpty()){
-                        Log.d("GKBSEARCH", "onQueryTextChange: $searchText")
-
                         postViewModel.getAllPosts().observe(viewLifecycleOwner, { allPosts ->
                             newPostList.addAll(allPosts)
-
-                            Log.d("GKBSEARCH", "BACKUP LIST: $newPostList")
-
                             postViewModel.deleteAllPosts()
 
                             newPostList.forEach {
                                 if (it.title.lowercase().contains(searchText)){
                                     val newList = mutableListOf(it)
-
-                                    Log.d("GKBSEARCH", "LIST WITH SEARCH TEXT: $newList")
-
                                     postAdapter.differ.submitList(newList)
                                 }
                             }
@@ -79,17 +74,16 @@ class PostsFragment : Fragment(), ClickPostInterface {
                         postAdapter.differ.submitList(newPostList)
                     }
                 }
-
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-//                listOfPosts.clear()
                 return true
             }
         })
     }
 
+    //This function adds a new post
     private fun addNewBook() {
         val newBook = args.postListItem
 
@@ -101,6 +95,7 @@ class PostsFragment : Fragment(), ClickPostInterface {
         }
     }
 
+    //This function observes changes in the database and updates UI accordingly
     private fun observeViewModel() {
         postViewModel.makeGetRequest()
         postViewModel.getAllPosts().observe(viewLifecycleOwner, {
@@ -108,17 +103,20 @@ class PostsFragment : Fragment(), ClickPostInterface {
         })
     }
 
+    //This function initializes recycler view adapter
     private fun initRecyclerViewAdapter() {
         postAdapter = PostAdapter(this)
         binding.postRecyclerview.adapter = postAdapter
         binding.postRecyclerview.setHasFixedSize(true)
     }
 
+    //This function navigates to a particular clicked post's comment
     override fun navigateToCommentsActivity(position: Int, postId: Int, postBody: String, title: String) {
         val action = PostsFragmentDirections.actionPostsFragmentToCommentsFragment(postId.toString(), postBody, title)
         findNavController().navigate(action)
     }
 
+    //Make binding null to avoid memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CommentsFragment : Fragment() {
+    //Initialize variables
     private lateinit var commentAdapter: CommentAdapter
     private var _binding: FragmentCommentsBinding? = null
     private val binding get() = _binding!!
@@ -28,6 +29,7 @@ class CommentsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        //Set up view binding
         _binding = FragmentCommentsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,17 +39,18 @@ class CommentsFragment : Fragment() {
 
         initRecyclerViewAdapter()
 
+        //Receive postId from previous fragment for network call
         val postId = args.postId
 
+        //Navigate to post fragment
         binding.backArrow.setOnClickListener {
             findNavController().navigate(R.id.action_commentsFragment_to_postsFragment)
             commentViewModel.deleteComments()
         }
 
+        //Navigate to add comment fragment
         binding.commentFloatingActionButton.setOnClickListener {
-
             val directions = CommentsFragmentDirections.actionCommentsFragmentToAddCommentFragment(postId.toInt(), commentAdapter.differ.currentList.size, args.title, args.postBody)
-            Log.d("GKBADD", "PASSED ID -> : ${commentAdapter.differ.currentList.size}")
             findNavController().navigate(directions)
         }
 
@@ -56,6 +59,7 @@ class CommentsFragment : Fragment() {
         observeViewModel(postId)
     }
 
+    //This function adds a new comment to database
     private fun addNewComment() {
         val commentListItem = args.commentListItem
 
@@ -66,11 +70,13 @@ class CommentsFragment : Fragment() {
         }
     }
 
+    //This function sets texts with title and body of clicked post from post fragment
     private fun showPostFromPostFragment() {
         binding.titleInComment.text = args.title
         binding.postBodyInComment.text = args.postBody
     }
 
+    //This function observes changes in the database and updates UI accordingly
     private fun observeViewModel(postId: String) {
         commentViewModel.makeGetRequest(postId)
         commentViewModel.getAllComments().observe(viewLifecycleOwner, {
@@ -78,12 +84,14 @@ class CommentsFragment : Fragment() {
         })
     }
 
+    //This function initializes recycler view adapter
     private fun initRecyclerViewAdapter() {
         commentAdapter = CommentAdapter()
         binding.recyclerviewInComment.adapter = commentAdapter
         binding.recyclerviewInComment.setHasFixedSize(true)
     }
 
+    //Make binding null to avoid memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

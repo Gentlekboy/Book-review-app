@@ -14,11 +14,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddCommentFragment : Fragment() {
+    //Initialize variables
     private var _binding: FragmentAddCommentBinding? = null
     private val binding get() = _binding!!
     private val args: AddCommentFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        //Set up view binding
         _binding = FragmentAddCommentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -26,10 +28,12 @@ class AddCommentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Navigate to comments fragment on click of the back button
         binding.backArrow.setOnClickListener {
             findNavController().navigate(R.id.action_addCommentFragment_to_commentsFragment)
         }
 
+        //Pass commentListItem to comment fragment
         binding.addCommentButton.setOnClickListener {
             val commentBody = binding.commentEditText.text.toString().trim()
             val postId = args.postId
@@ -44,6 +48,7 @@ class AddCommentFragment : Fragment() {
         }
     }
 
+    //Make binding null to avoid memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

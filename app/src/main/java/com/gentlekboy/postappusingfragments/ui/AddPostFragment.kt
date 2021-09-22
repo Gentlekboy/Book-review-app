@@ -14,11 +14,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddPostFragment : Fragment() {
+    //Initialize variables
     private var _binding: FragmentAddPostBinding? = null
     private val binding get() = _binding!!
     private val args: AddPostFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        //Set up view binding
         _binding = FragmentAddPostBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -26,15 +28,18 @@ class AddPostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Navigate to posts fragment on click of the back button
         binding.backArrow.setOnClickListener {
             findNavController().navigate(R.id.action_addPostFragment_to_postsFragment)
         }
 
+        //Add new post on click of the add button
         binding.addBookButton.setOnClickListener {
             addNewBook()
         }
     }
 
+    //Passes postListItem to post fragment
     private fun addNewBook() {
         val title = binding.addBookTitle.text.toString().trim()
         val body = binding.addBookBody.text.toString().trim()
@@ -47,6 +52,7 @@ class AddPostFragment : Fragment() {
         }
     }
 
+    //Make binding null to avoid memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
