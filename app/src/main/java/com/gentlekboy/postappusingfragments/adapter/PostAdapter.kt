@@ -13,6 +13,7 @@ class PostAdapter(private var clickPostInterface: ClickPostInterface): RecyclerV
 
     inner class PostViewHolder(var binding: PostsViewHolderBinding): RecyclerView.ViewHolder(binding.root)
 
+    //Create diffCallback to add lists in my adapter in a background thread
     private val diffCallback = object: DiffUtil.ItemCallback<PostListItem>(){
         override fun areItemsTheSame(oldItem: PostListItem, newItem: PostListItem): Boolean {
             return oldItem.id == newItem.id
@@ -26,11 +27,13 @@ class PostAdapter(private var clickPostInterface: ClickPostInterface): RecyclerV
 
     val differ = AsyncListDiffer(this, diffCallback)
 
+    //Inflate views from view holder layout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = PostsViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding)
     }
 
+    //Bind data to views
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         with(holder){
             with(differ.currentList[position]){
@@ -39,12 +42,13 @@ class PostAdapter(private var clickPostInterface: ClickPostInterface): RecyclerV
                 binding.postId.text = id.toString()
 
                 holder.itemView.setOnClickListener {
-                    clickPostInterface.navigateToCommentsActivity(position, id)
+                    clickPostInterface.navigateToCommentsActivity(position, id, body, title)
                 }
             }
         }
     }
 
+    //Get the list of items in the adapter
     override fun getItemCount(): Int {
         return differ.currentList.size
     }

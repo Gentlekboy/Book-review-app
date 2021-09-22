@@ -9,15 +9,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostViewModel @Inject constructor(private val postRepository: PostRepository): ViewModel() {
+    //Get all posts from database and observe in the fragment
     fun getAllPosts(): LiveData<List<PostListItem>>{
         return postRepository.getAllPosts()
     }
 
+    //Trigger get request for posts
     fun makeGetRequest(){
         postRepository.makeGetRequest()
     }
 
+    //Trigger post request
+    fun makePostRequest(postListItem: PostListItem){
+        postRepository.makePostRequest(postListItem)
+    }
+
+    //Add new post to database
     fun addNewPost(postListItem: PostListItem){
         postRepository.insertPost(postListItem)
+    }
+
+    //Delete posts from database
+    fun deleteAllPosts(){
+        postRepository.deleteAllPosts()
     }
 }

@@ -1,5 +1,6 @@
 package com.gentlekboy.postappusingfragments.utils
 
 interface ClickPostInterface {
-    fun navigateToCommentsActivity(position: Int, postId: Int)
+    //Navigate to comment with parameters
+    fun navigateToCommentsActivity(position: Int, postId: Int, postBody: String, title: String)
 }

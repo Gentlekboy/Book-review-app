@@ -11,18 +11,25 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class PostRepository @Inject constructor(
-    private val apiInterface: ApiInterface,
-    private val appDao: AppDao
-) {
+//Inject instances of DAO and retrofit interface
+class PostRepository @Inject constructor(private val apiInterface: ApiInterface, private val appDao: AppDao) {
+
+    //Get all posts from database
     fun getAllPosts(): LiveData<List<PostListItem>>{
         return appDao.getAllPosts()
     }
 
+    //Add post to database
     fun insertPost(postListItem: PostListItem){
         appDao.insertPost(postListItem)
     }
 
+    //Delete all posts fro database
+    fun deleteAllPosts(){
+        appDao.deletePosts()
+    }
+
+    //Make get request for posts
     fun makeGetRequest(){
         val networkCall: Call<PostList> = apiInterface.getPostsFromApi()
 
@@ -43,6 +50,7 @@ class PostRepository @Inject constructor(
         })
     }
 
+    //Make post request for posts
     fun makePostRequest(postListItem: PostListItem){
         val networkCall: Call<PostListItem> = apiInterface.makeAPost(postListItem)
 

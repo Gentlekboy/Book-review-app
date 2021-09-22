@@ -18,6 +18,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class PostAppModule {
+
+    //Create a single instance of retrofit interface
     @Singleton
     @Provides
     fun connectedInterface(): ApiInterface{
@@ -31,15 +33,17 @@ class PostAppModule {
             .create(ApiInterface::class.java)
     }
 
+    //Create a single instance of database
     @Singleton
     @Provides
     fun getPostDatabase(context: Application): AppDatabase{
         return AppDatabase.getDbInstance(context)
     }
 
+    //Create a single instance of DAO
     @Singleton
     @Provides
     fun getPostDao(appDatabase: AppDatabase): AppDao {
-        return appDatabase.getPostDao()
+        return appDatabase.getDaoInstance()
     }
 }

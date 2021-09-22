@@ -10,16 +10,18 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiInterface {
-    //This function specifies the request type and endpoint
+    //Make get request for posts
     @GET("posts")
     fun getPostsFromApi(): Call<PostList>
 
+    //Make get request fro comments associated with a post
     @GET("posts/{postId}/comments")
     fun getCommentsFromApi(
         @Path("postId")
         postId: String
     ): Call<CommentList>
 
+    //Make post request
     @POST("posts")
     fun makeAPost(
         @Body
