@@ -29,7 +29,7 @@ class PostRepository @Inject constructor(
         networkCall.enqueue(object : Callback<PostList?> {
             override fun onResponse(call: Call<PostList?>, response: Response<PostList?>) {
                 if (response.isSuccessful){
-                    appDao.deletePosts()
+//                    appDao.deletePosts()
 
                     response.body()?.forEach {
                         insertPost(it)
