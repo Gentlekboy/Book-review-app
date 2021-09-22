@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.gentlekboy.postappusingfragments.R
 import com.gentlekboy.postappusingfragments.databinding.FragmentAddPostBinding
 import com.gentlekboy.postappusingfragments.model.posts.PostListItem
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,10 @@ class AddPostFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.backArrow.setOnClickListener {
+            findNavController().navigate(R.id.action_addPostFragment_to_postsFragment)
+        }
 
         binding.addBookButton.setOnClickListener {
             addNewBook()
