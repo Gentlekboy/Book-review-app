@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AddPostFragment">
+    tools:context=".ui.AddCommentFragment">
 
     <ImageView
         android:id="@+id/back_arrow"
@@ -19,49 +19,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:text="Add a new Post"
+        android:text="Add a new Comment"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
         app:layout_constraintStart_toEndOf="@+id/back_arrow"
         app:layout_constraintTop_toTopOf="@+id/back_arrow" />
 
     <EditText
-        android:id="@+id/add_book_title"
+        android:id="@+id/comment_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:padding="16dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Enter title of book here"
+        android:padding="16dp"
+        android:background="#00000000"
+        android:hint="Enter your comment here"
+        app:layout_constraintBottom_toTopOf="@+id/add_comment_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/back_arrow" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-    <EditText
-        android:id="@+id/add_book_body"
+    <Button
+        android:id="@+id/add_comment_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:padding="16dp"
-        android:ems="10"
-        android:hint="Enter summary of book here"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="@+id/add_book_title"
-        app:layout_constraintStart_toStartOf="@+id/add_book_title"
-        app:layout_constraintTop_toBottomOf="@+id/add_book_title" />
-
-    <Button
-        android:id="@+id/add_book_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Add Book"
-        app:layout_constraintEnd_toEndOf="@+id/add_book_body"
-        app:layout_constraintStart_toStartOf="@+id/add_book_body"
-        app:layout_constraintTop_toBottomOf="@+id/add_book_body" />
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/comment_edit_text"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/comment_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/comment_edit_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

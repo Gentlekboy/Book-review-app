@@ -47,5 +47,42 @@
             android:name="postId"
             app:argType="string"
             android:defaultValue="1" />
+        <argument
+            android:name="postBody"
+            app:argType="string"
+            android:defaultValue="postBody" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="title" />
+        <action
+            android:id="@+id/action_commentsFragment_to_addCommentFragment"
+            app:destination="@id/addCommentFragment" />
+        <argument
+            android:name="commentListItem"
+            app:argType="com.gentlekboy.postappusingfragments.model.comments.CommentListItem"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCommentFragment"
+        android:name="com.gentlekboy.postappusingfragments.ui.AddCommentFragment"
+        android:label="fragment_add_comment"
+        tools:layout="@layout/fragment_add_comment" >
+        <action
+            android:id="@+id/action_addCommentFragment_to_commentsFragment"
+            app:destination="@id/commentsFragment" />
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="postBody"
+            app:argType="string" />
     </fragment>
 </navigation>
