@@ -16,4 +16,8 @@ class PostViewModel @Inject constructor(private val postRepository: PostReposito
     fun makeGetRequest(){
         postRepository.makeGetRequest()
     }
+
+    fun addNewPost(postListItem: PostListItem){
+        postRepository.insertPost(postListItem)
+    }
 }
