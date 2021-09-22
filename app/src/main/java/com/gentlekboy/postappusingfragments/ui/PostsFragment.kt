@@ -1,15 +1,18 @@
 package com.gentlekboy.postappusingfragments.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gentlekboy.postappusingfragments.adapter.PostAdapter
 import com.gentlekboy.postappusingfragments.databinding.FragmentPostsBinding
+import com.gentlekboy.postappusingfragments.model.posts.PostListItem
 import com.gentlekboy.postappusingfragments.utils.ClickPostInterface
 import com.gentlekboy.postappusingfragments.viewModel.PostViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,13 +44,60 @@ class PostsFragment : Fragment(), ClickPostInterface {
         initRecyclerViewAdapter()
         addNewBook()
         observeViewModel()
+        filterPosts()
+    }
+
+    private fun filterPosts() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                val searchText = query?.lowercase()?.trim()
+                val newPostList = mutableListOf<PostListItem>()
+//
+                if (searchText != null) {
+                    if (searchText.isNotEmpty()){
+                        Log.d("GKBSEARCH", "onQueryTextChange: $searchText")
+
+                        postViewModel.getAllPosts().observe(viewLifecycleOwner, { allPosts ->
+                            newPostList.addAll(allPosts)
+
+                            Log.d("GKBSEARCH", "BACKUP LIST: $newPostList")
+
+                            postViewModel.deleteAllPosts()
+
+                            newPostList.forEach {
+                                if (it.title.lowercase().contains(searchText)){
+                                    val newList = mutableListOf(it)
+
+                                    Log.d("GKBSEARCH", "LIST WITH SEARCH TEXT: $newList")
+
+                                    postAdapter.differ.submitList(newList)
+                                }
+                            }
+                        })
+                    }else{
+                        postAdapter.differ.submitList(newPostList)
+                    }
+                }
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+//                listOfPosts.clear()
+                return true
+            }
+        })
     }
 
     private fun addNewBook() {
         val newBook = args.postListItem
 
         if (newBook != null){
-            postViewModel.addNewPost(newBook)
+            postViewModel.apply {
+                makePostRequest(newBook)
+                addNewPost(newBook)
+            }
         }
     }
 
@@ -64,8 +114,8 @@ class PostsFragment : Fragment(), ClickPostInterface {
         binding.postRecyclerview.setHasFixedSize(true)
     }
 
-    override fun navigateToCommentsActivity(position: Int, postId: Int) {
-        val action = PostsFragmentDirections.actionPostsFragmentToCommentsFragment(postId.toString())
+    override fun navigateToCommentsActivity(position: Int, postId: Int, postBody: String, title: String) {
+        val action = PostsFragmentDirections.actionPostsFragmentToCommentsFragment(postId.toString(), postBody, title)
         findNavController().navigate(action)
     }
 
