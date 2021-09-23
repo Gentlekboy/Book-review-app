@@ -6,20 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.AddPostFragment">
 
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
+        android:elevation="2dp"
         android:src="@drawable/ic_baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:text="Add a new Post"
+        android:layout_marginStart="16dp"
+        android:text="Add a new book"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
         app:layout_constraintStart_toEndOf="@+id/back_arrow"
@@ -30,28 +43,31 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:padding="16dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="Enter title of book here"
+        android:inputType="text"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_book_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/back_arrow" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
         android:id="@+id/add_book_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:padding="16dp"
         android:ems="10"
-        android:hint="Enter summary of book here"
         android:gravity="start|top"
+        android:hint="Enter summary of book here"
         android:inputType="textMultiLine"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_book_button"
         app:layout_constraintEnd_toEndOf="@+id/add_book_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/add_book_title"
         app:layout_constraintTop_toBottomOf="@+id/add_book_title" />
 
@@ -61,7 +77,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Add Book"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/add_book_body"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/add_book_body"
         app:layout_constraintTop_toBottomOf="@+id/add_book_body" />
 </androidx.constraintlayout.widget.ConstraintLayout>

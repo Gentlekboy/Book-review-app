@@ -6,20 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.CommentsFragment">
 
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
+        android:elevation="2dp"
         android:src="@drawable/ic_baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:text="Reviews"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
         app:layout_constraintStart_toEndOf="@+id/back_arrow"
@@ -46,7 +59,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/post_id_in_comment"
         app:layout_constraintStart_toEndOf="@+id/book_image_in_comment"
-        app:layout_constraintTop_toBottomOf="@id/back_arrow" />
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <TextView
         android:id="@+id/post_id_in_comment"
@@ -55,6 +68,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/_1"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/book_image_in_comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/title_in_comment" />
 
@@ -62,7 +76,8 @@
         android:id="@+id/post_body_in_comment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
+        android:maxLines="5"
         android:text="@string/post_body"
         app:layout_constraintEnd_toEndOf="@+id/title_in_comment"
         app:layout_constraintStart_toStartOf="@+id/title_in_comment"
@@ -72,24 +87,25 @@
         android:id="@+id/reviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="@string/reviews"
-        android:textSize="16sp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/book_image_in_comment"
-        app:layout_constraintTop_toBottomOf="@+id/post_body_in_comment" />
+        app:layout_constraintTop_toBottomOf="@+id/book_image_in_comment" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_in_comment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        tools:listitem="@layout/comments_view_holder"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reviews" />
+        app:layout_constraintTop_toBottomOf="@+id/reviews"
+        tools:listitem="@layout/comments_view_holder" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/comment_floating_action_button"
@@ -97,7 +113,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:contentDescription="Add new comment"
+        android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Add new comment" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

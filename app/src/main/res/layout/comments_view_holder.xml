@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="10dp"
-    app:cardElevation="10dp">
+    android:layout_marginTop="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="8dp">
+        android:paddingVertical="12dp">
 
         <ImageView
             android:id="@+id/comment_profile_picture"
@@ -29,7 +28,7 @@
             android:layout_marginEnd="8dp"
             android:maxLines="1"
             android:text="@string/comment_name"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/comment_profile_picture"
@@ -50,7 +49,7 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:stepSize="4"
-            android:progressBackgroundTint="@color/teal_200"
+            android:progressBackgroundTint="@color/blue"
             app:layout_constraintStart_toStartOf="@+id/comment_email"
             app:layout_constraintTop_toBottomOf="@+id/comment_email" />
 
@@ -72,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/review_helpful"
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="@+id/comment_body"
             app:layout_constraintTop_toBottomOf="@+id/comment_body" />
 
@@ -79,7 +79,12 @@
             android:id="@+id/no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/review_options_background"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="1dp"
             android:text="@string/no"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/helpful_text"
             app:layout_constraintEnd_toEndOf="@+id/comment_body"
             app:layout_constraintTop_toTopOf="@+id/helpful_text" />
@@ -88,8 +93,12 @@
             android:id="@+id/yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/review_options_background"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="1dp"
             android:text="@string/yes"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/no"
             app:layout_constraintEnd_toStartOf="@+id/no"
             app:layout_constraintTop_toTopOf="@+id/no" />
