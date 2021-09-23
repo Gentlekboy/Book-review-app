@@ -29,6 +29,11 @@ class PostRepository @Inject constructor(private val apiInterface: ApiInterface,
         appDao.deletePosts()
     }
 
+    //Search database
+    fun searchDatabase(searchQuery: String): LiveData<List<PostListItem>>{
+        return appDao.searchDatabase(searchQuery)
+    }
+
     //Make get request for posts
     fun makeGetRequest(){
         val networkCall: Call<PostList> = apiInterface.getPostsFromApi()

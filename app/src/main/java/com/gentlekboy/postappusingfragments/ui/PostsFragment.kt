@@ -1,7 +1,6 @@
 package com.gentlekboy.postappusingfragments.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gentlekboy.postappusingfragments.adapter.PostAdapter
 import com.gentlekboy.postappusingfragments.databinding.FragmentPostsBinding
-import com.gentlekboy.postappusingfragments.model.posts.PostListItem
 import com.gentlekboy.postappusingfragments.utils.ClickPostInterface
 import com.gentlekboy.postappusingfragments.viewModel.PostViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,33 +51,24 @@ class PostsFragment : Fragment(), ClickPostInterface {
     private fun filterPosts() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
-                val searchText = query?.lowercase()?.trim()
-                val newPostList = mutableListOf<PostListItem>()
-//
-                if (searchText != null) {
-                    if (searchText.isNotEmpty()){
-                        postViewModel.getAllPosts().observe(viewLifecycleOwner, { allPosts ->
-                            newPostList.addAll(allPosts)
-                            postViewModel.deleteAllPosts()
-
-                            newPostList.forEach {
-                                if (it.title.lowercase().contains(searchText)){
-                                    val newList = mutableListOf(it)
-                                    postAdapter.differ.submitList(newList)
-                                }
-                            }
-                        })
-                    }else{
-                        postAdapter.differ.submitList(newPostList)
-                    }
-                }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    searchDatabase(newText)
+                }
                 return true
             }
+        })
+    }
+
+    //This function searches the database
+    fun searchDatabase(query: String){
+        val searchQuery = "%$query%"
+
+        postViewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner, {
+            postAdapter.differ.submitList(it)
         })
     }
 

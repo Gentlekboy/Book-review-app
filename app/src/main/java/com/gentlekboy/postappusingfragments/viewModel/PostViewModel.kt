@@ -33,4 +33,9 @@ class PostViewModel @Inject constructor(private val postRepository: PostReposito
     fun deleteAllPosts(){
         postRepository.deleteAllPosts()
     }
+
+    //Searches the database for post title and is observed in the post fragment
+    fun searchDatabase(searchQuery: String): LiveData<List<PostListItem>> {
+        return postRepository.searchDatabase(searchQuery)
+    }
 }

@@ -22,6 +22,10 @@ interface AppDao {
     @Query("DELETE FROM posts")
     fun deletePosts()
 
+    //Search database using post title
+    @Query("SELECT * FROM posts WHERE title LIKE :searchQuery")
+    fun searchDatabase(searchQuery: String): LiveData<List<PostListItem>>
+
     //Gets all comments from database
     @Query("SELECT * FROM comments")
     fun getAllComments(): LiveData<List<CommentListItem>>
