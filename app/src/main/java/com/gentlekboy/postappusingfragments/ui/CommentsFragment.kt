@@ -54,8 +54,8 @@ class CommentsFragment : Fragment() {
             findNavController().navigate(directions)
         }
 
-        showPostFromPostFragment()
         addNewComment()
+        showPostFromPostFragment()
         observeViewModel(postId)
     }
 
