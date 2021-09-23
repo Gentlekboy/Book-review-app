@@ -74,6 +74,7 @@ class CommentsFragment : Fragment() {
     private fun showPostFromPostFragment() {
         binding.titleInComment.text = args.title
         binding.postBodyInComment.text = args.postBody
+        binding.postIdInComment.text = args.postId
     }
 
     //This function observes changes in the database and updates UI accordingly
